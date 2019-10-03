@@ -2,7 +2,7 @@ using System;
 
 namespace BillTracker
 {
-    public class Bill
+    public class Bill : IComparable
     {
         private Bill(double balance, DateTime dueDate)
         {
@@ -25,6 +25,12 @@ namespace BillTracker
         {
             return this.balance;
         }
+
+        public int CompareTo(object obj)
+        {
+            return dueDate.CompareTo(obj);
+        }
+
         private double balance;
     }
 }
