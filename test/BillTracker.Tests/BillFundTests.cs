@@ -54,7 +54,7 @@ namespace BillTracker.Tests
         }
 
         [Fact]
-        public void PayingBillRemovesFunds()
+        public void PayNextBillRemovesFunds()
         {
             BillFund fund = GetBillFund("Test");
 
@@ -93,9 +93,9 @@ namespace BillTracker.Tests
             Bill bill2 = Bill.From(200, new DateTime(2019, 08, 23));
 
             fund.AddBill(bill);
-            fund.AddBill(bill);
+            fund.AddBill(bill2);
 
-            Assert.Equal(fund.GetTotalDue(), 100 + 200);
+            Assert.Equal(100 + 200, fund.GetTotalDue());
         }
 
         [Fact]

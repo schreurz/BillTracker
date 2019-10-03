@@ -28,7 +28,7 @@ namespace BillTracker
 
         public int CompareTo(object obj)
         {
-            return dueDate.CompareTo(obj);
+            return dueDate.CompareTo(((Bill)obj).GetDueDate());
         }
 
         private double balance;

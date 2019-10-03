@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace BillTracker
 {
@@ -9,21 +9,22 @@ namespace BillTracker
         {
             Title = title;
             Balance = 0;
-            upcomingBills = new SortedList();
-            payedBills = new SortedList();
+            upcomingBills = new List<Bill>();
+            payedBills = new List<Bill>();
         }
 
         public void AddBill(Bill bill)
         {
-            upcomingBills.Add(bill.GetDueDate(), bill);
+            upcomingBills.Add(bill);
+            upcomingBills.Sort();
         }
 
         public void PayNextBill()
         {
-            Bill nextBill = (Bill)upcomingBills.GetByIndex(0);
+            Bill nextBill = upcomingBills[0];
             upcomingBills.RemoveAt(0);
             Balance -= nextBill.GetBalance();
-            payedBills.Add(nextBill.GetDueDate(), nextBill);
+            payedBills.Add(nextBill);
         }
 
         public void DepositFunds(double amount)
@@ -37,7 +38,7 @@ namespace BillTracker
 
         public Bill GetBill(int index)
         {
-            return (Bill)upcomingBills.GetByIndex(0);
+            return upcomingBills[index];
         }
 
         public double GetTotalDue()
@@ -63,7 +64,7 @@ namespace BillTracker
             private set;
         }
 
-        private SortedList upcomingBills;
-        private SortedList payedBills;
+        private List<Bill> upcomingBills;
+        private List<Bill> payedBills;
     }
 }
