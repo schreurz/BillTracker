@@ -29,9 +29,21 @@ namespace BillTracker.Tests
             Assert.Equal(expected, actual);
         }
 
-        Bill GetBill(double balance, DateTime dueDate)
+        [Fact]
+        public void BillCreatedWithPayee()
         {
-            return Bill.From(balance, dueDate);
+            var bill = GetBill(123.45, new DateTime(2019, 8, 23), "Consumers");
+
+            var expected = "Consumers";
+
+            var actual = bill.GetPayee();
+
+            Assert.Equal(expected, actual);
+        }
+
+        Bill GetBill(double balance, DateTime dueDate, string payee=null)
+        {
+            return Bill.From(balance, dueDate, payee);
         }
     }
 }

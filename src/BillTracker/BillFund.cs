@@ -19,6 +19,46 @@ namespace BillTracker
             upcomingBills.Sort();
         }
 
+        public HashSet<string> GetPayees()
+        {
+            HashSet<string> payees = new HashSet<string>();
+            foreach (Bill bill in this.upcomingBills)
+            {
+                payees.Add(bill.GetPayee());
+            }
+            foreach (Bill bill in this.payedBills)
+            {
+                payees.Add(bill.GetPayee());
+            }
+
+            return payees;
+        }
+
+        public List<Bill> GetBillsByPayee(string payee)
+        {
+            List<Bill> bills = new List<Bill>();
+            foreach (Bill bill in this.upcomingBills)
+            {
+                if (bill.GetPayee() == payee)
+                {
+                    bills.Add(bill);
+                }
+            }
+
+            bills.Sort();
+
+            return bills;
+        }
+
+        public void PayBill(Bill bill)
+        {
+            if (upcomingBills.Remove(bill))
+            {
+                Balance -= bill.GetBalance();
+                payedBills.Add(bill);
+            }
+        }
+
         public void PayNextBill()
         {
             Bill nextBill = upcomingBills[0];

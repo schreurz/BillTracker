@@ -6,7 +6,8 @@ namespace BillTracker
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            BillFund fund = new BillFund("zack");
+            
         }
     }
 }
